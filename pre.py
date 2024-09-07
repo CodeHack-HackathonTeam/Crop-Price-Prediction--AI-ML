@@ -9,11 +9,11 @@ data['Date'] = pd.to_datetime(data['Date'], format='%d/%m/%Y')
 
 # Step 3: Handle missing values
 
-data.fillna(data.median(), inplace=True)
+data['Price'].fillna(data['Price'].median(), inplace=True)
 
 # Step 4: Encode 'States/UTs' using label encoding
 label_encoder = LabelEncoder()
-data['States/UTs'] = label_encoder.fit_transform(data['States/UTs'])
+data['State/UT'] = label_encoder.fit_transform(data['State/UT'])
 
 # Step 5: Handle outliers (Optional)
 # You can apply any method you prefer to detect and handle outliers, such as capping values
@@ -24,10 +24,10 @@ data['States/UTs'] = label_encoder.fit_transform(data['States/UTs'])
 # Check the cleaned data
 #feature engineering
 
-data['Month'] = data['DATE'].dt.month
-data['Day_of_Week'] = data['DATE'].dt.day_name()  # This will give you the day name (e.g., 'Monday')
-data['Week_of_Year'] = data['DATE'].dt.isocalendar().week
-data['Day_of_Month'] = data['DATE'].dt.day
+data['Month'] = data['Date'].dt.month
+data['Day_of_Week'] = data['Date'].dt.day_name()  # This will give you the day name (e.g., 'Monday')
+data['Week_of_Year'] = data['Date'].dt.isocalendar().week
+data['Day_of_Month'] = data['Date'].dt.day
 
 
 print(data.head())

@@ -29,8 +29,21 @@ data['Day_of_Week'] = data['Date'].dt.day_name()  # This will give you the day n
 data['Week_of_Year'] = data['Date'].dt.isocalendar().week
 data['Day_of_Month'] = data['Date'].dt.day
 
+#Rolling price 
+
+# Sort data by date to ensure proper rolling calculations
+data.sort_values(by='Date', inplace=True)
+
+# Apply rolling mean and rolling standard deviation (e.g., window of 7 and 30 days)
+window_size = 7  # You can change this to 30 for a 30-day rolling calculation
+
+# Create new columns for rolling mean and standard deviation
+for col in data['Price']:
+    data[f'{col}_RollingMean_{window_size}'] = data[col].rolling(window=window_size).mean()
+    data[f'{col}_RollingStd_{window_size}'] = data[col].rolling(window=window_size).std()
+
 
 print(data.head())
 
 
-data.to_csv("karam.csv")
+data.to_csv("test.csv")
